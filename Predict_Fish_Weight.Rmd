@@ -70,8 +70,6 @@ subsets(regsubsets.out, statistic="adjr2", legend = "bottom", main ="adjr2")
 ```
 
 
-
-
 ### Best Models
 
 The best model is the two element model; H & W models.
@@ -121,11 +119,34 @@ anova(model5,model2)
 ```
 
 
-
 ## Roach
 
+```{r}
+library(leaps)
+regsubsets.out <-
+  regsubsets(Weight ~ .,
+                           data = Roach,
+                           nbest = 1,
+                           nvmax = NULL,
+                           force.in = NULL, force.out = NULL,
+                           method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+```
+
+```{r}
+library(car)
+subsets(regsubsets.out,statistic="adjr2", legend = "bottomleft", main ="adjr2")
+```
+
 ### Best Models
+Seems like the best model is model 2, where we can find L3 and W.
 
 ### Best Two regressor model
 
+The best model and the best regressor model are both the same, being model 2= L3-W.
+
 ## Final Summary Statements
+For Perch and Roach the best models and the best two regressor models are the same; the model 2 for both of them so we didn't have to compare or use ANOVA to find the p-value. On the other hand, Pike had a different best model; model5, corresponding to L1-L2-L3-H-W and for the best two regressor model is model2; L1-L3.For instance, we ran ANOVA using these two models to determine the p-value which was 8.679e-10.
+
